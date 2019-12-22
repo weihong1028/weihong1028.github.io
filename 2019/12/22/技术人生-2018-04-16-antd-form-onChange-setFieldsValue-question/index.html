@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="baidu-site-verification" content="093lY4ziMu" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="A hexo theme">
+    <meta name="keyword"  content="harry, blog">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!--<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
+    <title>
+        
+          在 Antd-From 组件表单域 onChange 回调中 setFieldsValue 修改自身表单域 value 无效的问题 - Hexo-theme-snail
+        
+    </title>
+
+    <link rel="canonical" href="https://blog.harrybetter.top/2019/12/22/技术人生-2018-04-16-antd-form-onChange-setFieldsValue-question/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+        
+<link rel="stylesheet" href="/css/dusign-light.css">
+
+        
+<link rel="stylesheet" href="/css/dusign-common-light.css">
+
+        
+<link rel="stylesheet" href="/css/font-awesome.css">
+
+        
+<link rel="stylesheet" href="/css/toc.css">
+
+        <!-- background effects end -->
+    
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/fonts.googleapis.css">
+
+
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.1.1"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    
+        <!-- background effects start -->
+        
+        <!-- background effects end -->
+    
+
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            
+                background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('')
+                /*post*/
+            
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Antd" title="Antd">Antd</a>
+                            
+                        </div>
+                        <h1>在 Antd-From 组件表单域 onChange 回调中 setFieldsValue 修改自身表单域 value 无效的问题</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Harry on
+                            2019-12-22
+                        </span>
+
+                        
+                            <div class="blank_box"></div>
+                            <span class="meta">
+                                Words <span class="post-count">1.3k</span> and
+                                Reading Time <span class="post-count">4</span> Minutes
+                            </span>
+                            <div class="blank_box"></div>
+                            <!-- 不蒜子统计 start -->
+                            <span class="meta">
+                                Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
+                            </span>
+                            <!-- 不蒜子统计 end -->
+                        
+
+                    </div>
+                
+
+                </div>
+            </div>
+        </div>      
+    </div>
+
+    
+    <div class="waveWrapper">
+        <div class="wave wave_before" style="background-image: url('/img/wave-light.png')"></div>
+        <div class="wave wave_after" style="background-image: url('/img/wave-light.png')"></div>
+    </div>
+    
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">HarryPotter</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/photography/">Photography</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                    <li>
+                        <a href="https://blog.csdn.net/d_Nail" target="_blank">Chinese Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="现象与问题"><a href="#现象与问题" class="headerlink" title="现象与问题"></a>现象与问题</h2><p>如题，我们先来看看以下两个例子。<br><a href="https://codesandbox.io/s/jq2r2qj29" target="_blank" rel="noopener">例子一</a>：给 <code>fieldKey</code> 为 <code>username</code> 的输入框输入字母，将其转化成大写字母显示出来（通过 <code>setFieldsValue</code>）。实际操作的时候，我对另外一个 <code>fieldKey</code> 为 <code>nickname</code> 的输入框也进行了赋值，以验证仅对当前操作表单域赋值失败的问题。</p>
+<p><img src="http://cdn.harrybetter.top/20180417-110504.png-smallstyle" alt=""></p>
+<p>输出结果证实：当通过 <code>fieldKey</code> 为 <code>username</code> 的输入框 <code>onChange</code> 回调方法给自身表单域设置值的时候是无效的，而不影响与之不同的表单域 <code>nickname</code> 的赋值。</p>
+<p><a href="https://codesandbox.io/s/5kw84ol6mk" target="_blank" rel="noopener">例子二</a>：跟例子一是差不多的代码，主要的区别是我们在 <code>onChange</code> 回调中尝试引入 <code>setTimeout(func, 0)</code><sub>[1]</sub> 这种非同步的方式来调用 <code>setFieldsValue</code>。这么做的原因主要是，<code>Antd-Form</code> 组件本身是将一个个输入控件包裹一层再通过 <code>setState</code> 的机制来使输入控件变为受控组件。组件在 <code>onChange</code> 回调的时候一般是 <code>Form</code> 组件收集最新 <code>value</code> 的时机，所以一般在这个回调 <code>Form</code> 组件会根据情况进行 <code>setState</code>，再加上我们在 <code>onChange</code> 中又调用了一遍 <code>setFieldsValue</code>，所以我们这里可以猜测的结果是：<code>Form</code> 组件在调用了我们的 <code>onChange</code> 后，再调用自己内部的 <code>setFieldsValue</code> 来同步页面数据，这样的话我们执行的 <code>setFieldsValue</code> 就相当于被覆盖掉了。</p>
+<p><img src="http://cdn.harrybetter.top/20180417-110641.png-smallstyle" alt=""></p>
+<p>输出结果证实：当我们通过 <code>setTimeout(func, 0)</code> 将 <code>setFieldsValue</code> 作为异步回调逻辑放到队列当中，那么可以确保我们的 <code>setFieldsValue</code> 会被有效的执行（不会发生覆盖），这样执行结果也跟我们预期的一致了。但这样的方式带来的坏处也显而易见，就是<strong>修改一次会触发两次 <code>render</code></strong>。</p>
+<p>注：此类问题对应我们公司 <code>React</code> 项目中自定义的 <code>InputGroup</code> 组件的一些联动设置值的问题。</p>
+<h2 id="阅读源码一探究竟"><a href="#阅读源码一探究竟" class="headerlink" title="阅读源码一探究竟"></a>阅读源码一探究竟</h2><p>在上一部分中，我们对 <code>Antd-Form</code> 组件的行为进行猜测，但具体是不是这样，还需要从源码中得知，毕竟在我们公司项目中碰到此类问题还不少，觉得是时候深究一番了。</p>
+<p>众所周知，<code>Antd</code> 中大部分组件的主要实现来自于 <a href="https://github.com/react-component" target="_blank" rel="noopener">react-component</a> 这个组（也是来自于阿里巴巴的前端工程师之手）， <code>Antd</code> 将组件 <code>api</code> 进行定制以及优化后给到开发者进行开发。我们要找 <code>Antd-Form</code> 源码实则应该找的是 <code>react-component/form</code> 这个项目的源码。</p>
+<p>首先，我们可以找到几个核心 <code>api</code> 的实现在 <a href="https://github.com/react-component/form/blob/36b8a1d3399d1e9ab9329eba6dce843691e0efe0/src/createBaseForm.js" target="_blank" rel="noopener">createBaseForm.js</a> 这个文件里。近而，我们可以发现以下几个非常重要的函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对应到我们例子一的话，这里的三个参数分别是：'username', 'onChange', event</span></span><br><span class="line">onCollectCommon(name, action, args) &#123;</span><br><span class="line">  <span class="keyword">const</span> fieldMeta = <span class="keyword">this</span>.fieldsStore.getFieldMeta(name);</span><br><span class="line">  <span class="keyword">if</span> (fieldMeta[action]) &#123;</span><br><span class="line">    <span class="comment">// 相当于执行了 onChange(...args)，这里会触发 setFieldsValue 操作</span></span><br><span class="line">    fieldMeta[action](...args);</span><br><span class="line">  &#125; ...</span><br><span class="line">  ...</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当有新的状态变化时会触发 Form 组件重新收集值</span></span><br><span class="line">onCollect(name_, action, ...args) &#123;</span><br><span class="line">  <span class="comment">// 对 username 的输入做出响应 this.onCollectCommon('username', 'onChange', args)</span></span><br><span class="line">  <span class="comment">// 此处先执行了用户自定义的 onChange 带件，即先调用调用了用户自定义的  setFieldsValue</span></span><br><span class="line">  <span class="keyword">const</span> &#123; name, field, fieldMeta &#125; = <span class="keyword">this</span>.onCollectCommon(name_, action, args);</span><br><span class="line">  ...</span><br><span class="line">  <span class="comment">// 更新 fieldStore 中 username 的值，并执行 forceUpdate</span></span><br><span class="line">  <span class="comment">// 此为后续调用，即用户自定义的会被后调用的这个 setFields(&#123; username: newField &#125;) 覆盖</span></span><br><span class="line">  <span class="keyword">this</span>.setFields(&#123; [name]: newField &#125;);</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">setFieldsValue(changedValues, callback) &#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="comment">// 更新 fieldStore 中 username 的值，并执行 forceUpdate</span></span><br><span class="line">  <span class="keyword">this</span>.setFields(newFields, callback);</span><br><span class="line">  ...</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">setFields(maybeNestedFields, callback) &#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="comment">// forceUpdate 类似于 setState，同步代码段里多个 forceUpdate 也会被优化最终只 render 一次</span></span><br><span class="line">  <span class="keyword">this</span>.forceUpdate(callback);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>看了源代码后，发现与一开始猜测的八九不离十，只是官方很巧妙地用了 <code>forceUpdate</code> 避开了不必要生命周期调用这点没有预料到，好在 <code>forceUpdate</code> 与 <code>setState</code> 的合并行为是一致的。</p>
+<p>最终，我们可以确定，在 <code>Antd-From</code> 组件表单域 <code>onChange</code> 回调中 <code>setFieldsValue</code> 修改自身表单域 <code>value</code> 无效的问题是<strong>因为用户自定义的 <code>setFieldsValue</code> 先于 <code>createBaseForm.js</code> 中同步状态值的 <code>setFields</code>调用，导致用户对于同个 <code>setFields</code> 的修改并不生效</strong>。</p>
+<h2 id="更优雅的解决方案"><a href="#更优雅的解决方案" class="headerlink" title="更优雅的解决方案"></a>更优雅的解决方案</h2><p>那有没有对于此类问题推荐的解决方案呢，其实是有的，如果我们认真阅读 Antd-From 组件文档，可以发现如下 api：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">参数  |  说明  |  类型</span><br><span class="line">options.getValueFromEvent  |  可以把 onChange 的参数（如 event）转化为控件的值  | function(..args)</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://codesandbox.io/s/y36nrpqkjz" target="_blank" rel="noopener">例子三</a>：使用 <code>options.getValueFromEvent</code> 不仅简化了代码，还确保了不会触发二次 render。</p>
+<p><img src="http://cdn.harrybetter.top/20180417-105126.png" alt=""></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] “如果以0毫秒的超时时间来调用setTimeout()，那么指定的函数不会立刻执行。相反，会把它放到队列中，等到前面处于等待状态的事件处理程序全部执行完成后，再“立即”调用它。”<br>摘录来自: (美)David Flanagan. “JavaScript权威指南（原书第6版）”。 iBooks. </p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/12/22/技术人生-2018-04-12-react16-Props的只读性/" data-toggle="tooltip" data-placement="top" title="React 16 中 Props 的只读性">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2019/12/22/瞎折腾-2018-11-18七牛云测试域名过期解决方案/" data-toggle="tooltip" data-placement="top" title="七牛云测试域名过期后新建空间转移失效文件">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- tip start -->
+                
+
+                
+                <div class="comment_notes">
+                    <p>
+                        This is copyright.
+                    </p>
+                </div>
+                
+                <!-- tip end -->
+
+                <!-- Sharing -->
+                
+                <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                <!--  css & js -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!-- Sharing -->
+
+                <!-- gitment start -->
+                
+                <!-- gitment end -->
+
+                <!-- 来必力City版安装代码 -->
+                
+                <!-- City版安装代码已完成 -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Antd" title="Antd">Antd</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://blog.csdn.net/d_Nail" target="_blank">Dusign&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Dusign&#39;s Web</a></li>
+                    
+                        <li><a href="https://github.com/dusign" target="_blank">Dusign&#39;s Github</a></li>
+                    
+                        <li><a href="#" target="_blank">Other</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+
+
+<style  type="text/css">
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/weihong1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/weihong1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/weihong1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/weihong1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Harry 2019 
+                    <br>
+                    Powered by 
+                    <a href="https://github.com/dusign/hexo-theme-snail" target="_blank" rel="noopener">
+                        <i>hexo-theme-snail</i>
+                    </a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0"
+                        width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=dusign&repo=hexo-theme-snail&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- Search -->
+
+<script src="/js/search.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://blog.harrybetter.top/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Search -->
+
+    <script type="text/javascript">      
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+            search_path = "search.xml";
+        }
+    var path = "/" + search_path;
+    searchFunc(path, 'local-search-input', 'local-search-result');
+    </script>
+
+
+<!-- busuanzi -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+
+    
+        <!-- background effects start -->
+        
+
+        
+            <script type="text/javascript" src="/js/mouse-click.js" content='[&#34;🌱&#34;,&#34;just do it&#34;,&#34;🌾&#34;,&#34;🍀&#34;,&#34;don&#39;t give up&#34;,&#34;🍂&#34;,&#34;🌻&#34;,&#34;try it again&#34;,&#34;🍃&#34;,&#34;never say die&#34;,&#34;🌵&#34;,&#34;🌿&#34;,&#34;🌴&#34;]' color='[&#34;rgb(121,93,179)&#34; ,&#34;rgb(76,180,231)&#34; ,&#34;rgb(184,90,154)&#34; ,&#34;rgb(157,211,250)&#34; ,&#34;rgb(255,0,0)&#34; ,&#34;rgb(242,153,29)&#34; ,&#34;rgb(23,204,16)&#34; ,&#34;rgb(222,0,0)&#34; ,&#34;rgb(22,36,92)&#34; ,&#34;rgb(127,24,116)&#34; ,&#34;rgb(119,195,79)&#34; ,&#34;rgb(4,77,34)&#34; ,&#34;rgb(122,2,60)&#34;]'></script>
+        
+
+        <!-- background effects end -->
+    
+
+</body>
+
+</html>

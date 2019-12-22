@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="baidu-site-verification" content="093lY4ziMu" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="A hexo theme">
+    <meta name="keyword"  content="harry, blog">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!--<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
+    <title>
+        
+          浏览器自带 PDF 预览功能实现（网页端+Electron 客户端） - Hexo-theme-snail
+        
+    </title>
+
+    <link rel="canonical" href="https://blog.harrybetter.top/2019/12/22/技术人生-20180908-js-pdf/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+        
+<link rel="stylesheet" href="/css/dusign-light.css">
+
+        
+<link rel="stylesheet" href="/css/dusign-common-light.css">
+
+        
+<link rel="stylesheet" href="/css/font-awesome.css">
+
+        
+<link rel="stylesheet" href="/css/toc.css">
+
+        <!-- background effects end -->
+    
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/fonts.googleapis.css">
+
+
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.1.1"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    
+        <!-- background effects start -->
+        
+        <!-- background effects end -->
+    
+
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            
+                background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('')
+                /*post*/
+            
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Electron" title="Electron">Electron</a>
+                            
+                        </div>
+                        <h1>浏览器自带 PDF 预览功能实现（网页端+Electron 客户端）</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Harry on
+                            2019-12-22
+                        </span>
+
+                        
+                            <div class="blank_box"></div>
+                            <span class="meta">
+                                Words <span class="post-count">1.1k</span> and
+                                Reading Time <span class="post-count">4</span> Minutes
+                            </span>
+                            <div class="blank_box"></div>
+                            <!-- 不蒜子统计 start -->
+                            <span class="meta">
+                                Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
+                            </span>
+                            <!-- 不蒜子统计 end -->
+                        
+
+                    </div>
+                
+
+                </div>
+            </div>
+        </div>      
+    </div>
+
+    
+    <div class="waveWrapper">
+        <div class="wave wave_before" style="background-image: url('/img/wave-light.png')"></div>
+        <div class="wave wave_after" style="background-image: url('/img/wave-light.png')"></div>
+    </div>
+    
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">HarryPotter</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/photography/">Photography</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                    <li>
+                        <a href="https://blog.csdn.net/d_Nail" target="_blank">Chinese Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>因为业务需要，我们需要开发一个在线预览  PDF 文件的功能，在我们开发的第一版本当中采用的是后端转为 HTML 后传输到前端进行展示，但这种方式存在几点问题：</p>
+<ol>
+<li>不够美观</li>
+<li>用户体验不够友好</li>
+<li>插入 HTML 存在 xss 注入风险<br>因此需要利用浏览器自身能力来预览 PDF 文件，使用浏览器自身插件有以下优势：</li>
+<li>用户体验更好，自带工具栏</li>
+<li>美观度更好，百分百还原</li>
+<li>避免代码注入</li>
+</ol>
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><p>开发环境：Chrome、Electron<br>PDF 来源：接口请求</p>
+<h3 id="流程如下"><a href="#流程如下" class="headerlink" title="流程如下"></a>流程如下</h3><ol>
+<li>请求 blob 格式数据返回，并且后端 <code>response</code> 体中 <code>Content-Type</code> 需要配置为 <code>application/pdf</code>，否则下一步中生成的 blob 链接访问时会直接触发下载。具体原因请查看 <a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Securing_your_site/Configuring_server_MIME_types" target="_blank" rel="noopener">MIME types</a>。</li>
+<li>浏览器处理成 <code>blob://...</code>, 客户端则需要处理成 <code>file://...</code> 临时访问路径。</li>
+<li>将生成的 url 添加到 iframe | 新窗口(Chrome)、webview | BrowserWindow(Electron)。</li>
+</ol>
+<h3 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'GET'</span>, url);</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="title">onreadystatechange</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (xhr.readyState === <span class="keyword">this</span>.DONE) &#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// 客户端模式：先下载文件到本地暂存为临时文件，再进行预览</span></span><br><span class="line">      <span class="comment">// 原因：electron 不支持 blob://... 形式的链接访问 pdf 文件，详见 issue</span></span><br><span class="line">      <span class="comment">// https://github.com/electron/electron/issues/13038</span></span><br><span class="line">      <span class="comment">// 调用 fs 模块暂时到应用程序临时目录下，再以 file:// 的链接访问</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">window</span>.isClientMode) &#123;</span><br><span class="line">        <span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">        reader.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> fs = <span class="built_in">window</span>.electron.remote.require(<span class="string">'fs'</span>);</span><br><span class="line">            <span class="keyword">const</span> pdfViewerFilePath = <span class="built_in">window</span>.process.env.pdfViewerFilePath;</span><br><span class="line">            fs.writeFileSync(pdfViewerFilePath, <span class="keyword">this</span>.result, <span class="string">'binary'</span>);</span><br><span class="line">            pdfViewerDom.src = <span class="string">`file://<span class="subst">$&#123;pdfViewerFilePath&#125;</span>`</span>;</span><br><span class="line">          &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(<span class="string">'write file error'</span>, error);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        reader.readAsBinaryString(<span class="keyword">this</span>.response);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 浏览器模式</span></span><br><span class="line">        <span class="comment">// 转为 blob://... 链接，并设置到 iframe 上</span></span><br><span class="line">        pdfViewerDom.src = URL.createObjectURL(<span class="keyword">this</span>.response);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.error(<span class="string">'XHR failed'</span>, <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 接受 blob 类型的数据</span></span><br><span class="line">xhr.responseType = <span class="string">'blob'</span>;</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">window</span>.isClientMode ? (</span><br><span class="line">      <span class="comment">// Electron 中使用 webview 协会的 iframe, 并且需要设置 plugins 允许使用浏览器插件，默认禁用</span></span><br><span class="line">      <span class="comment">// Electron 中也可以使用 new BrowserWindow(&#123; webPreferences: &#123; plugins: true &#125;) 打开创建的 url</span></span><br><span class="line">      &lt;webview plugins=<span class="string">"true"</span> id=<span class="string">"js-pdf-viewer"</span> /&gt;</span><br><span class="line">  ) : (</span><br><span class="line">      &lt;iframe id=<span class="string">"js-pdf-viewer"</span> /&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="问题回顾"><a href="#问题回顾" class="headerlink" title="问题回顾"></a>问题回顾</h2><h3 id="浏览器打开-blob-链接直接下载问题是怎么回事"><a href="#浏览器打开-blob-链接直接下载问题是怎么回事" class="headerlink" title="浏览器打开 blob:// 链接直接下载问题是怎么回事"></a>浏览器打开 blob:// 链接直接下载问题是怎么回事</h3><p>此问题是由于前期没有注意使用指定的 MIME types，通过原生浏览器预览 PDF 需要指定为 <code>application/pdf</code> 类型。</p>
+<h3 id="Electron-不能使用-iframe"><a href="#Electron-不能使用-iframe" class="headerlink" title="Electron 不能使用 iframe"></a>Electron 不能使用 iframe</h3><p>Electron 中使用 webview 替换 iframe。</p>
+<blockquote>
+<p>与 iframe 不同, webview 在与应用程序不同的进程中运行。它与您的网页没有相同的权限, 应用程序和嵌入内容之间的所有交互都将是异步的。 这将保证你的应用对于嵌入的内容的安全性。 注意: 从宿主页上调用 webview 的方法大多数都需要对主进程进行同步调用</p>
+</blockquote>
+<h3 id="Electron-默认禁用插件功能，无法调起-PDF-预览界面导致空白页面"><a href="#Electron-默认禁用插件功能，无法调起-PDF-预览界面导致空白页面" class="headerlink" title="Electron 默认禁用插件功能，无法调起 PDF 预览界面导致空白页面"></a>Electron 默认禁用插件功能，无法调起 PDF 预览界面导致空白页面</h3><ul>
+<li>在 webview 中使用 plugins 开启。</li>
+<li>新窗口使用 <code>new BrowserWindow({ webPreferences: { plugins: true })</code>。<blockquote>
+<p>当有此属性时， webview中的访客页将有能力去使用浏览器的插件，Plugins 默认是禁用的。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Electron-不支持加载-blog-类型的文件预览-url"><a href="#Electron-不支持加载-blog-类型的文件预览-url" class="headerlink" title="Electron 不支持加载 blog:// 类型的文件预览 url"></a>Electron 不支持加载 blog:// 类型的文件预览 url</h3><p>官方 bug: <a href="https://github.com/electron/electron/issues/13038" target="_blank" rel="noopener">https://github.com/electron/electron/issues/13038</a><br>由于 Electron 不支持，所以这里使用替换方案：客户端模式下需先下载文件到本地暂存为临时文件，再进行预览。<br>具体步骤为：</p>
+<ol>
+<li>调用 fs 模块暂时到应用程序临时目录下</li>
+<li>再以 file:// 的链接的形式访问</li>
+</ol>
+<p>关键代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// set temp.pdf path</span></span><br><span class="line"><span class="keyword">const</span> pdfPreviewFilePath =</span><br><span class="line">  process.platform === <span class="string">'darwin'</span></span><br><span class="line">    ? <span class="string">`<span class="subst">$&#123;homePath&#125;</span>/Library/Logs/<span class="subst">$&#123;appName&#125;</span>/temp.pdf`</span></span><br><span class="line">    : <span class="string">`<span class="subst">$&#123;homePath&#125;</span>\\AppData\\Roaming\\<span class="subst">$&#123;appName&#125;</span>\\temp.pdf`</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// save as temp.pdf</span></span><br><span class="line"><span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> fs = <span class="built_in">window</span>.electron.remote.require(<span class="string">'fs'</span>);</span><br><span class="line">        fs.writeFileSync(<span class="string">'$&#123;path&#125;/temp.pdf'</span>, <span class="keyword">this</span>.result, <span class="string">'binary'</span>);</span><br><span class="line">        <span class="built_in">window</span>.electron.ipcRenderer.send(<span class="string">'pdf-viewer'</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(<span class="string">'write file error'</span>, error);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">reader.readAsBinaryString(blob);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// open pdf viewer</span></span><br><span class="line">ipcMain.on(<span class="string">'pdf-viewer'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> pdfViewerConfig = &#123;</span><br><span class="line">        webPreferences: &#123;</span><br><span class="line">            plugins: <span class="literal">true</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">const</span> pdfViewer = <span class="keyword">new</span> BrowserWindow(pdfViewerConfig);</span><br><span class="line">    pdfViewer.loadURL(<span class="string">`file://<span class="subst">$&#123;pdfPreviewFilePath&#125;</span>`</span>); <span class="comment">// the path of temp.pdf</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Securing_your_site/Configuring_server_MIME_types" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/Security/Securing_your_site/Configuring_server_MIME_types</a><br><a href="http://www.iana.org/assignments/media-types/index.html" target="_blank" rel="noopener">http://www.iana.org/assignments/media-types/index.html</a><br><a href="https://electronjs.org/docs/api/webview-tag" target="_blank" rel="noopener">https://electronjs.org/docs/api/webview-tag</a></p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/12/22/技术人生-2018-04-18-cnpm-vs-npm/" data-toggle="tooltip" data-placement="top" title="npm vs cnpm">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2019/12/22/技术人生-2018-04-12-react16-Props的只读性/" data-toggle="tooltip" data-placement="top" title="React 16 中 Props 的只读性">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- tip start -->
+                
+
+                
+                <div class="comment_notes">
+                    <p>
+                        This is copyright.
+                    </p>
+                </div>
+                
+                <!-- tip end -->
+
+                <!-- Sharing -->
+                
+                <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                <!--  css & js -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!-- Sharing -->
+
+                <!-- gitment start -->
+                
+                <!-- gitment end -->
+
+                <!-- 来必力City版安装代码 -->
+                
+                <!-- City版安装代码已完成 -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Electron" title="Electron">Electron</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://blog.csdn.net/d_Nail" target="_blank">Dusign&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Dusign&#39;s Web</a></li>
+                    
+                        <li><a href="https://github.com/dusign" target="_blank">Dusign&#39;s Github</a></li>
+                    
+                        <li><a href="#" target="_blank">Other</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+
+
+<style  type="text/css">
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/weihong1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/weihong1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/weihong1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/weihong1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Harry 2019 
+                    <br>
+                    Powered by 
+                    <a href="https://github.com/dusign/hexo-theme-snail" target="_blank" rel="noopener">
+                        <i>hexo-theme-snail</i>
+                    </a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0"
+                        width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=dusign&repo=hexo-theme-snail&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- Search -->
+
+<script src="/js/search.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://blog.harrybetter.top/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Search -->
+
+    <script type="text/javascript">      
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+            search_path = "search.xml";
+        }
+    var path = "/" + search_path;
+    searchFunc(path, 'local-search-input', 'local-search-result');
+    </script>
+
+
+<!-- busuanzi -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+
+    
+        <!-- background effects start -->
+        
+
+        
+            <script type="text/javascript" src="/js/mouse-click.js" content='[&#34;🌱&#34;,&#34;just do it&#34;,&#34;🌾&#34;,&#34;🍀&#34;,&#34;don&#39;t give up&#34;,&#34;🍂&#34;,&#34;🌻&#34;,&#34;try it again&#34;,&#34;🍃&#34;,&#34;never say die&#34;,&#34;🌵&#34;,&#34;🌿&#34;,&#34;🌴&#34;]' color='[&#34;rgb(121,93,179)&#34; ,&#34;rgb(76,180,231)&#34; ,&#34;rgb(184,90,154)&#34; ,&#34;rgb(157,211,250)&#34; ,&#34;rgb(255,0,0)&#34; ,&#34;rgb(242,153,29)&#34; ,&#34;rgb(23,204,16)&#34; ,&#34;rgb(222,0,0)&#34; ,&#34;rgb(22,36,92)&#34; ,&#34;rgb(127,24,116)&#34; ,&#34;rgb(119,195,79)&#34; ,&#34;rgb(4,77,34)&#34; ,&#34;rgb(122,2,60)&#34;]'></script>
+        
+
+        <!-- background effects end -->
+    
+
+</body>
+
+</html>

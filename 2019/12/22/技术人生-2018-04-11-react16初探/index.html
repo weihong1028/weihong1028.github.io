@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="baidu-site-verification" content="093lY4ziMu" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="A hexo theme">
+    <meta name="keyword"  content="harry, blog">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!--<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
+    <title>
+        
+          入坑 React 16.3.1，项目迁移实践 - Hexo-theme-snail
+        
+    </title>
+
+    <link rel="canonical" href="https://blog.harrybetter.top/2019/12/22/技术人生-2018-04-11-react16初探/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+        
+<link rel="stylesheet" href="/css/dusign-light.css">
+
+        
+<link rel="stylesheet" href="/css/dusign-common-light.css">
+
+        
+<link rel="stylesheet" href="/css/font-awesome.css">
+
+        
+<link rel="stylesheet" href="/css/toc.css">
+
+        <!-- background effects end -->
+    
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/fonts.googleapis.css">
+
+
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.1.1"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    
+        <!-- background effects start -->
+        
+        <!-- background effects end -->
+    
+
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            
+                background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('')
+                /*post*/
+            
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#React" title="React">React</a>
+                            
+                        </div>
+                        <h1>入坑 React 16.3.1，项目迁移实践</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Harry on
+                            2019-12-22
+                        </span>
+
+                        
+                            <div class="blank_box"></div>
+                            <span class="meta">
+                                Words <span class="post-count">1k</span> and
+                                Reading Time <span class="post-count">4</span> Minutes
+                            </span>
+                            <div class="blank_box"></div>
+                            <!-- 不蒜子统计 start -->
+                            <span class="meta">
+                                Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
+                            </span>
+                            <!-- 不蒜子统计 end -->
+                        
+
+                    </div>
+                
+
+                </div>
+            </div>
+        </div>      
+    </div>
+
+    
+    <div class="waveWrapper">
+        <div class="wave wave_before" style="background-image: url('/img/wave-light.png')"></div>
+        <div class="wave wave_after" style="background-image: url('/img/wave-light.png')"></div>
+    </div>
+    
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">HarryPotter</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/photography/">Photography</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                    <li>
+                        <a href="https://blog.csdn.net/d_Nail" target="_blank">Chinese Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我们公司前端组从 2017 年 1 月份全面转战 React 以来，使用 React 15 开发至今，随着业务地不断增加，项目体量也在不断升级，我们在性能方面碰到了一些瓶颈（比如展示非常多条记录的表格）。React 16 的推出以及它即将应用升级的全新的 fiber 架构使我们看到了一些很 hack 的解决方案（关于 fiber 架构就不在此篇文章当中进一步展开）。早在 2017 年 9 月份，React 就已然推出了 16.0，至今已经发布到了 16.3.1 版本。众多相关库纷纷响应起来，而其中就有我们项目中用得最广泛的 React UI 组件库 antd。antd 3.0 以及 antd pro 的推出也进一步促使了我们把公司现行项目升级到 React 16.x 的决心。</p>
+<h2 id="阅读官方文档"><a href="#阅读官方文档" class="headerlink" title="阅读官方文档"></a>阅读官方文档</h2><p>建议有时间的话把官方文档中 <code>Docs</code>、<code>Blog</code> 这两个模块的内容都阅读一遍，有助于理解。要是英文影响阅读速度，可尝试通过<a href="https://doc.react-china.org" target="_blank" rel="noopener">第三方中文文档网站阅读</a>。</p>
+<h3 id="16-0-16-3-官方升级日志"><a href="#16-0-16-3-官方升级日志" class="headerlink" title="16.0~16.3 官方升级日志"></a>16.0~16.3 官方升级日志</h3><p>16.0：<a href="https://reactjs.org/blog/2017/09/26/react-v16.0.html" target="_blank" rel="noopener">https://reactjs.org/blog/2017/09/26/react-v16.0.html</a><br>16.2：<a href="https://reactjs.org/blog/2017/11/28/react-v16.2.0-fragment-support.html" target="_blank" rel="noopener">https://reactjs.org/blog/2017/11/28/react-v16.2.0-fragment-support.html</a><br>16.3：<a href="https://reactjs.org/blog/2018/03/29/react-v-16-3.html" target="_blank" rel="noopener">https://reactjs.org/blog/2018/03/29/react-v-16-3.html</a></p>
+<h3 id="重要新特性"><a href="#重要新特性" class="headerlink" title="重要新特性"></a>重要新特性</h3><p>Fragments：<a href="https://reactjs.org/docs/fragments.html" target="_blank" rel="noopener">https://reactjs.org/docs/fragments.html</a><br>Render Props：<a href="https://reactjs.org/docs/render-props.html" target="_blank" rel="noopener">https://reactjs.org/docs/render-props.html</a><br>错误采集：<a href="https://reactjs.org/docs/error-boundaries.html" target="_blank" rel="noopener">https://reactjs.org/docs/error-boundaries.html</a><br>new Context API：<a href="https://reactjs.org/docs/context.html" target="_blank" rel="noopener">https://reactjs.org/docs/context.html</a><br>new Refs way: <a href="https://reactjs.org/docs/refs-and-the-dom.html" target="_blank" rel="noopener">https://reactjs.org/docs/refs-and-the-dom.html</a><br>Portals API: <a href="https://reactjs.org/docs/portals.html" target="_blank" rel="noopener">https://reactjs.org/docs/portals.html</a></p>
+<h3 id="值得一看"><a href="#值得一看" class="headerlink" title="值得一看"></a>值得一看</h3><p>React 16 新生命周期指南：<a href="https://reactjs.org/docs/react-component.html" target="_blank" rel="noopener">https://reactjs.org/docs/react-component.html</a><br>展望 React 16：<a href="https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html" target="_blank" rel="noopener">https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html</a><br>关于异步渲染：<a href="https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html" target="_blank" rel="noopener">https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html</a></p>
+<h3 id="一些重要的点"><a href="#一些重要的点" class="headerlink" title="一些重要的点"></a>一些重要的点</h3><p>React.PropTypes 分包</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Before</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line">xxxProp: React.PropTypes.string.isRequired</span><br><span class="line"></span><br><span class="line"><span class="comment">// After</span></span><br><span class="line"><span class="keyword">import</span> PropTypes <span class="keyword">from</span> <span class="string">'prop-types'</span></span><br><span class="line">xxxProp: PropTypes.string.isRequired</span><br></pre></td></tr></table></figure>
+<p>不安全的生命周期函数</p>
+<blockquote>
+</blockquote>
+<p>• 16.3: Introduce aliases for the unsafe lifecycles, UNSAFE_componentWillMount, UNSAFE_componentWillReceiveProps, and UNSAFE_componentWillUpdate. (Both the old lifecycle names and the new aliases will work in this release.)<br>• A future 16.x release: Enable deprecation warning for componentWillMount, componentWillReceiveProps, and componentWillUpdate. (Both the old lifecycle names and the new aliases will work in this release, but the old names will log a DEV-mode warning.)<br>• 17.0: Remove componentWillMount, componentWillReceiveProps, and componentWillUpdate . (Only the new “UNSAFE_” lifecycle names will work from this point forward.)</p>
+<p>16.3 新增的生命周期函数<br><code>static getDerivedStateFromProps</code> and <code>getSnapshotBeforeUpdate</code><br><code>Fragment</code> 语法糖 <code>&lt;&gt;&lt;/&gt;</code> 需要编译支持</p>
+<h2 id="升级评估"><a href="#升级评估" class="headerlink" title="升级评估"></a>升级评估</h2><h3 id="依赖包引用方式"><a href="#依赖包引用方式" class="headerlink" title="依赖包引用方式"></a>依赖包引用方式</h3><p>有破坏性升级，原 <code>React.PropTypes</code> 被提到 <code>prop-types</code> 包</p>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>无破坏性升级，兼容原来的生命周期并提供两个新的生命周期函数 <code>static getDerivedStateFromProps</code> and <code>getSnapshotBeforeUpdate</code></p>
+<h3 id="Fragement-新特性"><a href="#Fragement-新特性" class="headerlink" title="Fragement 新特性"></a>Fragement 新特性</h3><p>需要升级 <code>babel</code> 以及 <code>Eslint</code> 来支持，目前支持 <code>React 16</code> 的仍处于 <code>beta</code> 阶段，但<a href="https://babeljs.io/blog/2017/09/12/planning-for-7.0" target="_blank" rel="noopener">稳定版</a>即将推出</p>
+<h2 id="升级进行时"><a href="#升级进行时" class="headerlink" title="升级进行时"></a>升级进行时</h2><h3 id="第一关：React-PropTypes-改为单独引用"><a href="#第一关：React-PropTypes-改为单独引用" class="headerlink" title="第一关：React.PropTypes 改为单独引用"></a>第一关：React.PropTypes 改为单独引用</h3><h3 id="第二关：mobx-react-报错"><a href="#第二关：mobx-react-报错" class="headerlink" title="第二关：mobx-react 报错"></a>第二关：mobx-react 报错</h3><p>需要升级 mobx-react 到 v4.4.3，如果升级至 v5.0.0 会要求需要升级 mobx 大版本至 v4.x，暂时只升级至 v4.4.3</p>
+<h3 id="第三关：升级-babel-beta-来支持-Fragement-空标签特性"><a href="#第三关：升级-babel-beta-来支持-Fragement-空标签特性" class="headerlink" title="第三关：升级 babel.beta 来支持 Fragement 空标签特性"></a>第三关：升级 babel.beta 来支持 Fragement 空标签特性</h3><p>babel v7 以后所有包命名都加上了 @babel 前缀，比如 <a href="https://github.com/babel/babel/issues/7711" target="_blank" rel="noopener">babel-core ==&gt; @babel/core</a>。而 babel-loader 依赖最新稳定版本依赖的仍然是旧命名，作者在发布了 v7 以后，为了适应 babel v7 在 babel-loader v7 的基础上，直接升级大版本 v8.beta。v8.beta 支持更正为最新命名</p>
+<h3 id="第四关：升级了-babel-core、-babel-prset-react、babel-loader-后编译碰到错误"><a href="#第四关：升级了-babel-core、-babel-prset-react、babel-loader-后编译碰到错误" class="headerlink" title="第四关：升级了 @babel/core、@babel/prset-react、babel-loader 后编译碰到错误"></a>第四关：升级了 @babel/core、@babel/prset-react、babel-loader 后编译碰到<a href="https://github.com/babel/babel/issues/6808" target="_blank" rel="noopener">错误</a></h3><p>看起来应该是要把 babel 下的所有其它包以及配置也同时升级。鉴于当下所有 babel 相关的包处于 beta 阶段，建议过一段时间等稳定版本发布了并有一些人踩了坑之后再尝试支持【空标签】的新特性，官方也支持我们先通过 <code>&lt;Fragement&gt;</code> 标签化的形式，后续再替换为空标签的语法糖</p>
+<h3 id="第五关：引入-React-StrictMode"><a href="#第五关：引入-React-StrictMode" class="headerlink" title="第五关：引入 React.StrictMode"></a>第五关：引入 React.StrictMode</h3>
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/12/22/技术人生-2018-04-03-batch脚本互换文件夹名称/" data-toggle="tooltip" data-placement="top" title="batch 脚本实战之互换文件夹名">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2019/12/22/技术人生-2018-04-16-settimeout-0/" data-toggle="tooltip" data-placement="top" title="JS 中 setTimeout 的第二个参数为 0">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- tip start -->
+                
+
+                
+                <div class="comment_notes">
+                    <p>
+                        This is copyright.
+                    </p>
+                </div>
+                
+                <!-- tip end -->
+
+                <!-- Sharing -->
+                
+                <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                <!--  css & js -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!-- Sharing -->
+
+                <!-- gitment start -->
+                
+                <!-- gitment end -->
+
+                <!-- 来必力City版安装代码 -->
+                
+                <!-- City版安装代码已完成 -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#React" title="React">React</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://blog.csdn.net/d_Nail" target="_blank">Dusign&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Dusign&#39;s Web</a></li>
+                    
+                        <li><a href="https://github.com/dusign" target="_blank">Dusign&#39;s Github</a></li>
+                    
+                        <li><a href="#" target="_blank">Other</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+
+
+<style  type="text/css">
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/weihong1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/weihong1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/weihong1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/weihong1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Harry 2019 
+                    <br>
+                    Powered by 
+                    <a href="https://github.com/dusign/hexo-theme-snail" target="_blank" rel="noopener">
+                        <i>hexo-theme-snail</i>
+                    </a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0"
+                        width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=dusign&repo=hexo-theme-snail&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- Search -->
+
+<script src="/js/search.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://blog.harrybetter.top/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Search -->
+
+    <script type="text/javascript">      
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+            search_path = "search.xml";
+        }
+    var path = "/" + search_path;
+    searchFunc(path, 'local-search-input', 'local-search-result');
+    </script>
+
+
+<!-- busuanzi -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+
+    
+        <!-- background effects start -->
+        
+
+        
+            <script type="text/javascript" src="/js/mouse-click.js" content='[&#34;🌱&#34;,&#34;just do it&#34;,&#34;🌾&#34;,&#34;🍀&#34;,&#34;don&#39;t give up&#34;,&#34;🍂&#34;,&#34;🌻&#34;,&#34;try it again&#34;,&#34;🍃&#34;,&#34;never say die&#34;,&#34;🌵&#34;,&#34;🌿&#34;,&#34;🌴&#34;]' color='[&#34;rgb(121,93,179)&#34; ,&#34;rgb(76,180,231)&#34; ,&#34;rgb(184,90,154)&#34; ,&#34;rgb(157,211,250)&#34; ,&#34;rgb(255,0,0)&#34; ,&#34;rgb(242,153,29)&#34; ,&#34;rgb(23,204,16)&#34; ,&#34;rgb(222,0,0)&#34; ,&#34;rgb(22,36,92)&#34; ,&#34;rgb(127,24,116)&#34; ,&#34;rgb(119,195,79)&#34; ,&#34;rgb(4,77,34)&#34; ,&#34;rgb(122,2,60)&#34;]'></script>
+        
+
+        <!-- background effects end -->
+    
+
+</body>
+
+</html>
