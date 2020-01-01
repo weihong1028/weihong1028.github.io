@@ -16,11 +16,11 @@
     <!--<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
     <title>
         
-          七牛云测试域名过期后新建空间转移失效文件 - harrybetter
+          香山里那美如画的秋 · 京城十一月 - harrybetter
         
     </title>
 
-    <link rel="canonical" href="https://blog.harrybetter.top/2019/12/22/瞎折腾-2018-11-18七牛云测试域名过期解决方案/">
+    <link rel="canonical" href="https://blog.harrybetter.top/2018/11/18/手机摄影-2018-11-18-京城里那美如画的秋/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -105,19 +105,23 @@
                     <div class="post-heading">
                         <div class="tags">
                             
+                              <a class="tag" href="/tags/#vsco" title="vsco">vsco</a>
+                            
+                              <a class="tag" href="/tags/#iphone" title="iphone">iphone</a>
+                            
                         </div>
-                        <h1>七牛云测试域名过期后新建空间转移失效文件</h1>
+                        <h1>香山里那美如画的秋 · 京城十一月</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Harry on
-                            2019-12-22
+                            2018-11-18
                         </span>
 
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                Words <span class="post-count">1.1k</span> and
-                                Reading Time <span class="post-count">3</span> Minutes
+                                Words <span class="post-count">6</span> and
+                                Reading Time <span class="post-count">1</span> Minutes
                             </span>
                             <div class="blank_box"></div>
                             <!-- 不蒜子统计 start -->
@@ -249,26 +253,24 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>8月份开始，邮箱里陆续出现了一些<a href="https://developer.qiniu.com/fusion/kb/1319/test-domain-access-restriction-rules" target="_blank" rel="noopener">七牛云测试域名过期失效的邮件</a>。一开始没怎么注意，直至最近我一公司同事告知我博客上的七牛云外链图片无法访问了才想起这件事来。既然测试域名过期了，那就再申请一个呗。可是，可恶的是竟然无法在原有空间继续申请测试域名，七牛云官方说辞如下：『<strong>七牛云测试域名是用户在创建云存储空间时系统自动生成的七牛域名</strong>』，所以原有空间必须绑定自定义域名才可以使用，而且连原有空间的图片已经无法进行外链预览和下载。可是自定义域名又需要是在国内备案通过的域名，这对于大部分借助第三方平台搭建博客的人来说是不太科学的情况，国内备案域名既需要购买域名，也需要购买主机才能申请备案。</p>
-<p>那么是否可以新建空间之后(携带测试域名)，将失效空间的文件转移过去进行访问呢。答案是有的，但<strong>必须借助命令行，无法通过七牛云界面进行转移</strong>。当然，<strong>这样做的代价</strong>也是有的：</p>
-<ol>
-<li>测试域名只有一个月有效</li>
-<li>转移文件之后需要更新博客所有的图床域名<br>但好在所有的操作都可以通过命令行完成，批量处理下原文件还是可以很快地完成操作的。以下是我的实践方案。</li>
-</ol>
-<h2 id="新建空间"><a href="#新建空间" class="headerlink" title="新建空间"></a>新建空间</h2><p>首先我们需要新建新的空间，来确保有新的测试域名可以使用，这一步只需要通过七牛云的界面进行操作就可以了。此处不进行详述。</p>
-<h2 id="下载-qshell-工具并进行初始配置"><a href="#下载-qshell-工具并进行初始配置" class="headerlink" title="下载 qshell 工具并进行初始配置"></a>下载 qshell 工具并进行初始配置</h2><p>最开始的时候我们提到需要使用命令行工具来将失效空间的文件转移到新空间的操作，因为这一步在七牛云的控制台界面上是没有提供转移文件的操作的。所以我们下载七牛云官方提供的 <a href="http://devtools.qiniu.com/qshell-v2.3.0.zip" target="_blank" rel="noopener">qshell-v2.3.0</a> 工具包。解压下载后的压缩文件，我们可以发现文件夹内有各个平台的可执行文件，由于我使用的是 mac，此处用到的是 <code>qshell_darwin_x64</code>。<br>接着我们按照<a href="https://developer.qiniu.com/kodo/tools/1302/qshell" target="_blank" rel="noopener">官方文档</a>进行配置：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> qshell</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置文件权限</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo chmod +x qshell_darwin_x64</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 在密钥管理处获取 ak/sk, name 为用户名</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./qshell_darwin_x64 account ak sk name</span></span><br></pre></td></tr></table></figure>
+                <center><h3>点</h3></center>
 
-<h2 id="导出失效空间所有文件名"><a href="#导出失效空间所有文件名" class="headerlink" title="导出失效空间所有文件名"></a>导出失效空间所有文件名</h2><p>我们需要获取所有的文件名（携带后缀）以便在下一步的时候将所有文件拷贝至新的空间下。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将原空间下的所有文件路径输出到 allfilepath.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./qshell_darwin_x64 listbucket old_bucket &gt; allfilepath.txt</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 移除路径前缀并将只包含文件名的列表保存到新文件中</span></span><br><span class="line">cat allfilepath.txt | awk -F '\t' '&#123;print $1&#125;' &gt; allfilename.txt</span><br></pre></td></tr></table></figure>
+<p><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7045.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7074.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7081.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7060.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7069.jpeg-smallstyle" alt=""></p>
+<center><h3>寺</h3></center>
 
-<h2 id="拷贝失效空间所有文件到新空间下"><a href="#拷贝失效空间所有文件到新空间下" class="headerlink" title="拷贝失效空间所有文件到新空间下"></a>拷贝失效空间所有文件到新空间下</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> batchcopy 命令用来将一个空间中的文件批量复制到另一个空间</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./qshell_darwin_x64 batchcopy old_bucket new_bucket -i allfilename.txt</span></span><br></pre></td></tr></table></figure>
-<p>注意：批量拷贝后并不影响旧空间，所以可以手动通过将旧空间删除</p>
-<h2 id="更新博客图片域名"><a href="#更新博客图片域名" class="headerlink" title="更新博客图片域名"></a>更新博客图片域名</h2><p>博文那么多当然不能自己打开文件一个一个进行替换，充分利用命令行来进行批量处理。批量替换后，同步最新的博客文档到服务器上就可以了。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将当前目录下的所有 md 文件中的 http://aaa.com 替换为 http://bbb.com</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sed -i <span class="string">''</span> <span class="string">'s#http://aaa.com#http://bbb.com#g'</span> *.mdah</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7066.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7046.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7048.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7043.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7077.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7044.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7083.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7082.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7051.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7054.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7056.jpeg-smallstyle" alt=""></p>
+<center><h3>黄</h3></center>
 
-<h2 id="关于效率"><a href="#关于效率" class="headerlink" title="关于效率"></a>关于效率</h2><p>此解决方案麻烦的地方就在于每个月需要进行一次操作，但按我实际的操作时长，差不多 10 分钟内就可以搞定了。所以，天底下没有免费又不需要付出的解决方案，要么花钱，要么出力😭。</p>
-<h2 id="文末"><a href="#文末" class="headerlink" title="文末"></a>文末</h2><p>当然这样的方案毕竟也不是长久之计。因此，域名备案已经在路上了😂，毕竟有台服务器除了放博客之外还可以搞搞其它的。</p>
+<p><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7047.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7049.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7050.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7078.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7075.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7084.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7085.jpeg-smallstyle" alt=""></p>
+<center><h3>红</h3></center>
+
+<p><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7068.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7059.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7061.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7055.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7063.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7065.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7070.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7073.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7062.jpeg-smallstyle" alt=""></p>
+<center><h3>人</h3></center>
+
+<p><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7058.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7057.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7064.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7067.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7080.jpeg-smallstyle" alt=""></p>
+<center><h3>余</h3></center>
+
+<p><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7071.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7072.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7076.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7079.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7053.jpeg-smallstyle" alt=""><br><img src="http://cdn.harrybetter.top/workflow-20181203-IMG_7052.jpeg-smallstyle" alt=""></p>
 
                 
                 <hr>
@@ -276,12 +278,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2019/12/22/技术人生-2018-04-16-antd-form-onChange-setFieldsValue-question/" data-toggle="tooltip" data-placement="top" title="在 Antd-From 组件表单域 onChange 回调中 setFieldsValue 修改自身表单域 value 无效的问题">&larr; Previous Post</a>
+                        <a href="/2019/06/15/手机摄影-2019-06-15-天坛公园/" data-toggle="tooltip" data-placement="top" title="天坛公园 · 京城六月">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2019/12/22/瞎折腾-2018-11-18-新域名备案/" data-toggle="tooltip" data-placement="top" title="新域名备案">Next Post &rarr;</a>
+                        <a href="/2018/11/18/手机摄影-2018-11-18-北京胡同里的那些人与物/" data-toggle="tooltip" data-placement="top" title="北京胡同里的那些人与物">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -337,6 +339,10 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#vsco" title="vsco">vsco</a>
+                        
+                          <a class="tag" href="/tags/#iphone" title="iphone">iphone</a>
+                        
                     </div>
                 </section>
                 
@@ -449,7 +455,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Harry 2019 
+                    Copyright &copy; Harry 2020 
                     <br>
                     <a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备18145967号-1</a>
                     <br>
